@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,8 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1yt-ob+i9+$til&n0-@xqpijo_iyjlju#s*x_m_t4z*c0-tt_!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
+# This is a list of strings representing the host/domain names that this Django site can serve.
+# This is used to prevent HTTP Host header attacks, which are possible even under many seemingly-safe web server configurations.
+# If you set this to ['*'], Django will allow all host headers.
+# This is not recommended for production, as it can lead to security vulnerabilities.
 # We an allow all hosts because the Google App Engine will handle the domain name
 # and SSL certificate for us. In production, you should set this to your domain name.
 # https://docs.djangoproject.com/en/5.2/ref/settings/#allowed-hosts
