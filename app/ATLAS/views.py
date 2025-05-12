@@ -14,6 +14,7 @@ import base64
 def landing(request):
     smiles = ''
     image_bytes = b''
+    img_encoded_string = ''
     if request.method == 'POST':
         compound_form = CompoundNameForm(request.POST)
         if compound_form.is_valid():
