@@ -11,6 +11,17 @@
 </head>
 <body>
     <h1>Molecule information from Google App Engine</h1>
-    <h2>{{ smiles }}</h2>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <div class='form_control'>
+            {{ compound_form }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Compound information</h2>
+    <p class="smiles-text">{{ smiles }}</p>
+    <!-- <img src="{{ mol_img }}" alt="Molecule Image" class="molecule-image"> -->
+    <!-- <img id="ItemPreview" src="data:image/png;base64,{{ mol_img }}"> -->
+    <img id="ItemPreview" src="data:image/png,{{ mol_img }}">
 </body>
 </html>
