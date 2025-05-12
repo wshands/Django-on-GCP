@@ -19,9 +19,10 @@
         <button type="submit">Submit</button>
     </form>
     <h2>Compound information</h2>
+    <h3>Smiles</h3>
     <p class="smiles-text">{{ smiles }}</p>
-    <!-- <img src="{{ mol_img }}" alt="Molecule Image" class="molecule-image"> -->
-    <!-- <img id="ItemPreview" src="data:image/png;base64,{{ mol_img }}"> -->
-    <img id="ItemPreview" src="data:image/png,{{ mol_img }}">
+    <!-- <img src="{% static 'ArtemisStatueatLouvre.jpeg' %}" alt="Molecule Image" class="molecule-image"> -->
+    <img id="ItemPreview" src="data:image/png;base64,{{ mol_img }}">
+    <!-- <img id="ItemPreview" src="data:image/png,{{ mol_img }}"> -->
 </body>
 </html>

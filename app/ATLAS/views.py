@@ -31,7 +31,7 @@ def landing(request):
                 image_bytes = buffer.getvalue()
                 img_encoded_bytes = base64.b64encode(image_bytes)
                 print(f"Image bytes length: {len(img_encoded_bytes)}")
-                #mol_img.save(f'data/{compound_name}.png')
-
+                img_encoded_string = img_encoded_bytes.decode('utf-8')
+ 
     compound_form = CompoundNameForm()
-    return render(request, 'ATLAS/index.html', { 'compound_form': compound_form, 'smiles': smiles, 'mol_img': image_bytes })
+    return render(request, 'ATLAS/index.html', { 'compound_form': compound_form, 'smiles': smiles, 'mol_img': img_encoded_string })
