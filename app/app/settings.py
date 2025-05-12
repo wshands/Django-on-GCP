@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+from app import secrets
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,6 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-1yt-ob+i9+$til&n0-@xqpijo_iyjlju#s*x_m_t4z*c0-tt_!'
+#SECRET_KEY = secrets.get('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
@@ -58,6 +62,7 @@ MIDDLEWARE = [
     # put back when using Cloud SQL PostgreSQL'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.datastore.NDBMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -163,3 +168,10 @@ LOGGING = {
         'level': 'DEBUG',
     }
 }
+
+# Google Cloud settings and using Datastore
+IS_GAE = os.environ.get('GAE_ENV', False)
+GOOGLE_CLOUD_PROJECT = os.environ.get('GOOGLE_CLOUD_PROJECT')
+DATASTORE_NAMESPACE = 'main'
+TEST_RUNNER = 'app.datastore.TestRunner'
+
