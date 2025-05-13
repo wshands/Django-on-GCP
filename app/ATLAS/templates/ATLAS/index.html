@@ -11,18 +11,26 @@
 </head>
 <body>
     <h1>Molecule information from Google App Engine</h1>
-    <form method="POST" action="/">
+    <form method="GET" action="/">
         {% csrf_token %}
         <div class='form_control'>
             {{ compound_form }}
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Get compound info and save to DB</button>
     </form>
-    <h2>Compound information</h2>
+    <h2>Compound: {{ compound_name }}</h2>
     <h3>Smiles</h3>
     <p class="smiles-text">{{ smiles }}</p>
-    <!-- <img src="{% static 'ArtemisStatueatLouvre.jpeg' %}" alt="Molecule Image" class="molecule-image"> -->
+    <h3>Structure</h3>
     <img id="ItemPreview" src="data:image/png;base64,{{ mol_img }}">
-    <!-- <img id="ItemPreview" src="data:image/png,{{ mol_img }}"> -->
+
+    <!-- <form method="POST" action="/">
+        {% csrf_token %}
+        <div class='form_control'>
+            {{ add_compound_form }}
+        </div>
+        <button type="submit">Save compound to DB</button>
+    </form>     -->
+
 </body>
 </html>

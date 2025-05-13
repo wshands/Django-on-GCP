@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
-
 from app import secrets
-
+from dotenv import load_dotenv
+    
+load_dotenv()
+    
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1yt-ob+i9+$til&n0-@xqpijo_iyjlju#s*x_m_t4z*c0-tt_!'
-#SECRET_KEY = secrets.get('SECRET_KEY')
-
+SECRET_KEY = secrets.get('SECRET_KEY')
+DB_PASSWORD = secrets.get('DB_PASSWORD')
+DB_USER = secrets.get('DB_USER')
+DB_NAME = secrets.get('DB_NAME')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
@@ -45,9 +48,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    # put back when using Cloud SQL PostgreSQL'django.contrib.admin',
-    # put back when using Cloud SQL PostgreSQL'django.contrib.auth',
-    # put back when using Cloud SQL PostgreSQL'django.contrib.contenttypes',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -59,10 +62,10 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # put back when using Cloud SQL PostgreSQL'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app.datastore.NDBMiddleware',
+    #'app.datastore.NDBMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -75,7 +78,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
-                # put back when using Cloud SQL PostgreSQL'django.contrib.auth.context_processors.auth',
+                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -88,14 +91,20 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-"""" put back when using Cloud SQL PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': os.environ.get('DB_HOST', '34.31.49.7'),
+        'PORT': os.environ.get('DB_PORT', 5432),
     }
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -172,6 +181,6 @@ LOGGING = {
 # Google Cloud settings and using Datastore
 IS_GAE = os.environ.get('GAE_ENV', False)
 GOOGLE_CLOUD_PROJECT = os.environ.get('GOOGLE_CLOUD_PROJECT')
-DATASTORE_NAMESPACE = 'main'
-TEST_RUNNER = 'app.datastore.TestRunner'
+#DATASTORE_NAMESPACE = 'main'
+#TEST_RUNNER = 'app.datastore.TestRunner'
 
