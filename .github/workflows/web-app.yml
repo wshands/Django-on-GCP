@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and deploy the Google App Engine web app
-      run: docker-compose -f docker-compose-deploy.yml run --rm --remove-orphans gcloud gcloud app deploy --project atlas-demo-459504
+      run: docker compose -f docker-compose-deploy.yml run --rm --remove-orphans gcloud gcloud app deploy --project atlas-demo-459504
