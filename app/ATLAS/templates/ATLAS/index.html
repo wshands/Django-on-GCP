@@ -13,12 +13,13 @@
     <h1>Molecule information from Google App Engine</h1>
     <form method="GET" action="/">
         {% csrf_token %}
-        <div class='form_control'>
+        <div class='form-control'>
             {{ compound_form }}
         </div>
         <button type="submit">Get compound info and save to DB</button>
     </form>
-    <h2>Compound: {{ compound_name }}</h2>
+    <h3>Compound name</h3>
+    <p class="compound-text">{{ compound_name }}</p>
     <h3>Smiles</h3>
     <p class="smiles-text">{{ smiles }}</p>
     <h3>Structure</h3>

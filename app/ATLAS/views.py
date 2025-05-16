@@ -12,6 +12,7 @@ from .models import Compound
 from io import BytesIO
 import io
 import base64
+import os
 
 def get_compound_information(compound_name):
 
@@ -63,18 +64,20 @@ def landing(request):
                 print(f"Image bytes length: {len(img_encoded_bytes)}")
                 img_encoded_string = img_encoded_bytes.decode('utf-8')
 
-                #compounds_in_db = Compound.objects.all()
-                #print(f"Compound in DB: {compounds_in_db}")
+                is_gae = os.environ.get('GAE_APPLICATION')
+                if not is_gae:
+                    #compounds_in_db = Compound.objects.all()
+                    #print(f"Compound in DB: {compounds_in_db}")
 
-                # Save the compound information to the database
-                # compound = Compound(
-                #     name=compound_name,
-                #     formula=formula,
-                #     smiles=smiles,
-                #     inchi=inchi
-                # )
-                #print("about to save compound")
-                #compound.save()
+                    # Save the compound information to the database
+                    compound = Compound(
+                        name=compound_name,
+                        formula=formula,
+                        smiles=smiles,
+                        inchi=inchi
+                    )
+                    print("about to save compound")
+                    compound.save()
                  
     elif request.method == 'POST':
         add_compound_form = AddCompoundForm(request.POST)
